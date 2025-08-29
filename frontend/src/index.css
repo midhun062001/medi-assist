@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Font families */
+  --font-open-sans: "Open Sans", sans-serif;
+
+  /* colors */
+  --color-blue-300: #63bbf2;
+  --color-blue-400: #39a0ed;
+  --color-blue-500: #5e4ae3;
+  --color-blue-600: #0f50a6;
+  --color-blue-700: #031d40;
+  --color-blue-800: #092140;
+  --color-black-100: #191919;
+  --color-black-200: #070707;
+  --color-black-300: #0d0d0d;
+  --color-white-200: #fbfcff;
+  --color-white-300: #f2f2f2;
+}

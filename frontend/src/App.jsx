@@ -1,5 +1,7 @@
+import Signup from "./pages/Signup";
+
 function App() {
-  return <h1>Medi Assist</h1>;
+  return <Signup />;
 }
 
 export default App;
