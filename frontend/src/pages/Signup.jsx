@@ -3,7 +3,12 @@ import * as Yup from "yup";
 
 export default function Signup() {
   //TODO: validate form data
-  const genders = ["Male", "Female", "Others"];
+  const genders = [
+    { key: "MALE", value: "Male" },
+    { key: "FEMALE", value: "Female" },
+    { key: "OTHERS", value: "Others" },
+  ];
+
   const bloodGroups = [
     { key: "A_POSITIVE", value: "A+" },
     { key: "A_NEGATIVE", value: "A-" },
@@ -31,7 +36,7 @@ export default function Signup() {
   const user = {
     firstName: "",
     lastName: "",
-    dob: new Date().toISOString().split("T")[0],
+    dob: "",
     gender: genders[0],
     bloodGroup: bloodGroups[0].value,
     email: "",
@@ -61,7 +66,15 @@ export default function Signup() {
         "last name can contain only alphabets and spaces"
       )
       .min(2, "last name must be at least 2 characters"),
+    dob: Yup.date()
+      .required("DOB required")
+      .max(new Date(), "DOB cannot be in future"),
+    email: Yup.string().email("Invalid email").required("Email Required!"),
+    phone: Yup.string()
+      .matches(/^[0-9]{10}$/, "phone number must have 10 digits")
+      .required("Phone Number Required!"),
   });
+
   const onSubmit = (values) => console.log(values);
 
   return (
@@ -90,7 +103,7 @@ export default function Signup() {
                   <TextInput
                     type="text"
                     name="firstName"
-                    placeHolder="Enter your First name"
+                    placeHolder="Enter your first name"
                     label="First Name"
                     title="Enter your first name"
                     span={3}
@@ -98,11 +111,119 @@ export default function Signup() {
                   <TextInput
                     type="text"
                     name="lastName"
-                    placeHolder="Enter your Last name"
+                    placeHolder="Enter your last name"
                     label="Last Name"
                     title="Enter your last name"
                     span={3}
                   />
+                  <TextInput
+                    type="date"
+                    name="dob"
+                    label="Date of Birth"
+                    title="Enter your date of birth"
+                    span={2}
+                  />
+                  <SelectInput
+                    name="gender"
+                    span={2}
+                    label="Gender"
+                    title="Select your gender"
+                    options={genders}
+                  />
+                  <SelectInput
+                    name="bloodGroup"
+                    span={2}
+                    label="Blood Group"
+                    title="Select your blood group"
+                    options={bloodGroups}
+                  />
+                  <TextInput
+                    type="email"
+                    name="email"
+                    label="Email"
+                    placeHolder="Enter your email address"
+                    title="Enter your email address"
+                    span={3}
+                  />
+                  <TextInput
+                    type="tel"
+                    name="phone"
+                    label="Phone"
+                    placeHolder="Enter your phone number"
+                    title="Enter your phone number"
+                    span={3}
+                  />
+                  <TextInput
+                    name="state"
+                    label="State"
+                    placeHolder="Enter your state"
+                    title="Enter your state"
+                  />
+                  <TextInput
+                    name="district"
+                    label="District"
+                    placeHolder="Enter your district"
+                    title="Enter your district"
+                  />
+                  <TextInput
+                    name="zip"
+                    label="Zip / Pin Code"
+                    placeHolder="Enter your zip / pin code"
+                    title="Enter your zip/pin code"
+                  />
+                  <SelectInput
+                    name="nationality"
+                    label="Nationality"
+                    title="Select your Nationality"
+                    options={countryCodes}
+                  />
+                  <TextInput
+                    name="aadhar"
+                    label="Aadhar Number"
+                    placeHolder="Enter your aadhar number"
+                    title="Enter your aadhar number"
+                  />
+                  <TextInput
+                    name="passport"
+                    label="Passport Number"
+                    placeHolder="Enter your passport number"
+                    title="Enter your passport number"
+                  />
+                  <div className="col-span-6 py-5 mb-4 bg-gray-300 rounded-md px-4">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                      Password must contain:
+                    </h3>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                      <li>At least 8 characters</li>
+                      <li>At least one uppercase letter (A–Z)</li>
+                      <li>At least one lowercase letter (a–z)</li>
+                      <li>At least one number (0–9)</li>
+                      <li>At least one special character (!@#$%^&*)</li>
+                    </ul>
+                  </div>
+
+                  <TextInput
+                    name="password"
+                    label="Password"
+                    placeHolder="Enter your password"
+                    title="Enter your password"
+                    span={3}
+                  />
+                  <TextInput
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    placeHolder="Confirm your password"
+                    title="confirm your password"
+                    span={3}
+                  />
+                  <div className="col-span-6 flex justify-center">
+                    <button
+                      className="bg-blue-800 px-15 py-2 rounded-md text-white-200 font-semibold text-sm hover:bg-blue-700 transition-all duration-100"
+                      type="submit"
+                    >
+                      Register
+                    </button>
+                  </div>
                 </Form>
               </Formik>
             </div>
@@ -136,8 +257,39 @@ const TextInput = ({
         name={name}
         title={title}
         placeholder={placeHolder}
-        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400"
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
       />
+      <ErrorMessage
+        name={name}
+        component="div"
+        className="text-red-600 text-xs"
+      />
+    </div>
+  );
+};
+
+const SelectInput = ({
+  name = "",
+  span = 2,
+  label = "",
+  title = "",
+  options = [],
+}) => {
+  return (
+    <div className={`${spanClasses[span]} flex flex-col gap-0.5 h-[80px] `}>
+      <label className="text-sm text-gray-700 font-bold">{label}</label>
+      <Field
+        component="select"
+        name={name}
+        title={title}
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
+      >
+        {options.map((a) => (
+          <option key={a.key} value={a.key}>
+            {a.value}
+          </option>
+        ))}
+      </Field>
       <ErrorMessage
         name={name}
         component="div"
