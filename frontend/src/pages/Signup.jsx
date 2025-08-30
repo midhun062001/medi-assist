@@ -1,65 +1,5 @@
-import React, { useState } from "react";
-
-const spanClasses = {
-  1: "col-span-1",
-  2: "col-span-2",
-  3: "col-span-3",
-  4: "col-span-4",
-  5: "col-span-5",
-  6: "col-span-6",
-};
-
-// Reusable Text Input
-const TextInput = ({
-  id,
-  value,
-  setterValue,
-  label,
-  type = "text",
-  placeholder,
-  span = 2,
-}) => (
-  <div className={`${spanClasses[span]} flex flex-col`}>
-    <label htmlFor={id} className="text-[12px] font-bold text-black-100">
-      {label}
-    </label>
-    <input
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => setterValue(e.target.value)}
-      className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 placeholder:text-gray-500 transition-all duration-100"
-    />
-  </div>
-);
-
-// Reusable Select Input
-const SelectInput = ({ id, value, setterValue, label, options, span = 2 }) => (
-  <div className={`${spanClasses[span]} flex flex-col`}>
-    <label htmlFor={id} className="text-[12px] font-bold text-black-100">
-      {label}
-    </label>
-    <select
-      id={id}
-      value={value}
-      onChange={(e) => setterValue(e.target.value)}
-      className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 transition-all ease-in duration-100"
-    >
-      {options.map((opt, idx) =>
-        typeof opt === "string" ? (
-          <option key={idx} value={opt}>
-            {opt}
-          </option>
-        ) : (
-          <option key={idx} value={opt.key}>
-            {opt.value}
-          </option>
-        )
-      )}
-    </select>
-  </div>
-);
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
 
 export default function Signup() {
   //TODO: validate form data
@@ -88,71 +28,41 @@ export default function Signup() {
     { key: "NZ", value: "New Zealand" },
   ];
 
-  // State
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dob, setDob] = useState(new Date().toISOString().split("T")[0]);
-  const [gender, setGender] = useState(genders[0]);
-  const [bloodGroup, setBloodGroup] = useState(bloodGroups[0].key);
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [state, setState] = useState("");
-  const [district, setDistrict] = useState("");
-  const [zip, setZip] = useState("");
-  const [nationality, setNationality] = useState(countryCodes[0].key);
-  const [aadhar, setAadhar] = useState("");
-  const [passport, setPassport] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const resetState = () => {
-    setFirstName("");
-    setLastName("");
-    setDob(new Date().toISOString().split("T")[0]);
-    setGender(genders[0]);
-    setBloodGroup(bloodGroups[0].value);
-    setEmail("");
-    setPhone("");
-    setDistrict("");
-    setState("");
-    setZip("");
-    setNationality(countryCodes[0].value);
-    setAadhar("");
-    setPassport("");
-    setPassword("");
-    setConfirmPassword("");
+  const user = {
+    firstName: "",
+    lastName: "",
+    dob: new Date().toISOString().split("T")[0],
+    gender: genders[0],
+    bloodGroup: bloodGroups[0].value,
+    email: "",
+    phone: "",
+    district: "",
+    state: "",
+    zip: "",
+    nationality: countryCodes[0].value,
+    aadhar: "",
+    passport: "",
+    password: "",
+    confirmPassword: "",
   };
 
-  // Submit handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const payload = {
-      firstName,
-      lastName,
-      dob,
-      gender: gender.toUpperCase(),
-      bloodGroup,
-      email,
-      phone,
-      state,
-      district,
-      zip,
-      nationality,
-      aadhar,
-      passport,
-      password,
-    };
-    console.log("Form Data:", payload);
-
-    //TODO: validate payload
-    validatePayload(payload);
-    //TODO: transfer the payload to the backend API
-    //TODO:: upon successful registration, route to login page
-
-    //TODO: remove later, for testing only
-    // reset form data
-    resetState();
-  };
+  const validationSchema = Yup.object({
+    firstName: Yup.string()
+      .required("Required!")
+      .matches(
+        /^[A-Za-z\s]+$/,
+        "first name can contain only alphabets and spaces"
+      )
+      .min(2, "first name must be at least 2 characters"),
+    lastName: Yup.string()
+      .required("Required!")
+      .matches(
+        /^[A-Za-z\s]+$/,
+        "last name can contain only alphabets and spaces"
+      )
+      .min(2, "last name must be at least 2 characters"),
+  });
+  const onSubmit = (values) => console.log(values);
 
   return (
     <div className="h-screen w-screen flex items-center justify-center py-10 px-20 bg-white-300">
@@ -170,140 +80,31 @@ export default function Signup() {
         {/* Right panel */}
         <div className="h-full w-full bg-white col-span-4 px-10 py-8 flex min-h-0">
           <div className="h-full w-full flex min-h-0">
-            <div className="h-full w-full overflow-y-auto p-4 rounded-md">
-              <form
-                onSubmit={handleSubmit}
-                className="w-full grid grid-cols-6 gap-x-2 gap-y-4"
+            <div className="h-full w-full overflow-y-auto p-4 rounded-md ">
+              <Formik
+                initialValues={user}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
               >
-                <TextInput
-                  id="first_name"
-                  value={firstName}
-                  setterValue={setFirstName}
-                  label="First Name"
-                  placeholder="First Name"
-                  span={3}
-                />
-                <TextInput
-                  id="last_name"
-                  value={lastName}
-                  setterValue={setLastName}
-                  label="Last Name"
-                  placeholder="Last Name"
-                  span={3}
-                />
-                <TextInput
-                  id="dob"
-                  value={dob}
-                  setterValue={setDob}
-                  label="Date of Birth"
-                  type="date"
-                  span={2}
-                />
-                <SelectInput
-                  id="gender"
-                  label="Gender"
-                  value={gender}
-                  setterValue={setGender}
-                  options={genders}
-                  span={2}
-                />
-                <SelectInput
-                  id="blood_group"
-                  label="Blood Group"
-                  value={bloodGroup}
-                  setterValue={setBloodGroup}
-                  options={bloodGroups}
-                  span={2}
-                />
-                <TextInput
-                  id="email"
-                  value={email}
-                  setterValue={setEmail}
-                  label="Email"
-                  type="email"
-                  placeholder="example@email.com"
-                  span={3}
-                />
-                <TextInput
-                  id="phone"
-                  value={phone}
-                  setterValue={setPhone}
-                  label="Mobile Number"
-                  type="tel"
-                  placeholder="Mobile Number"
-                  span={3}
-                />
-                <TextInput
-                  id="state"
-                  value={state}
-                  setterValue={setState}
-                  label="State"
-                  placeholder="State"
-                />
-                <TextInput
-                  id="district"
-                  value={district}
-                  setterValue={setDistrict}
-                  label="District"
-                  placeholder="District"
-                />
-                <TextInput
-                  id="zip"
-                  value={zip}
-                  setterValue={setZip}
-                  label="Zip Code"
-                  placeholder="Zip / Pin Code"
-                />
-                <SelectInput
-                  id="nationality"
-                  label="Nationality"
-                  value={nationality}
-                  setterValue={setNationality}
-                  options={countryCodes}
-                />
-                <TextInput
-                  id="aadhar"
-                  value={aadhar}
-                  setterValue={setAadhar}
-                  label="Aadhar Number"
-                  placeholder="Aadhar Number"
-                />
-                <TextInput
-                  id="passport"
-                  value={passport}
-                  setterValue={setPassport}
-                  label="Passport"
-                  placeholder="Passport Number"
-                />
-                <TextInput
-                  id="password_original"
-                  value={password}
-                  setterValue={setPassword}
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                  span={3}
-                />
-                <TextInput
-                  id="password_confirm"
-                  value={confirmPassword}
-                  setterValue={setConfirmPassword}
-                  label="Confirm Password"
-                  type="password"
-                  placeholder="Confirm Password"
-                  span={3}
-                />
-
-                {/* Submit */}
-                <div className="col-span-6 flex items-center justify-center pt-5">
-                  <button
-                    type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 h-[40px] px-8 py-2 text-white text-[16px] font-semibold rounded-md shadow-md transition duration-200"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+                <Form className="grid grid-cols-6 gap-x-2 gap-y-1">
+                  <TextInput
+                    type="text"
+                    name="firstName"
+                    placeHolder="Enter your First name"
+                    label="First Name"
+                    title="Enter your first name"
+                    span={3}
+                  />
+                  <TextInput
+                    type="text"
+                    name="lastName"
+                    placeHolder="Enter your Last name"
+                    label="Last Name"
+                    title="Enter your last name"
+                    span={3}
+                  />
+                </Form>
+              </Formik>
             </div>
           </div>
         </div>
@@ -311,3 +112,37 @@ export default function Signup() {
     </div>
   );
 }
+
+const spanClasses = {
+  1: "col-span-1",
+  2: "col-span-2",
+  3: "col-span-3",
+  4: "col-span-4",
+};
+
+const TextInput = ({
+  type = "text",
+  name = "",
+  placeHolder = "",
+  span = 2,
+  label = "",
+  title = "",
+}) => {
+  return (
+    <div className={`${spanClasses[span]} flex flex-col gap-0.5 h-[80px] `}>
+      <label className="text-sm text-gray-700 font-bold">{label}</label>
+      <Field
+        type={type}
+        name={name}
+        title={title}
+        placeholder={placeHolder}
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400"
+      />
+      <ErrorMessage
+        name={name}
+        component="div"
+        className="text-red-600 text-xs"
+      />
+    </div>
+  );
+};
