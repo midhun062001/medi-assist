@@ -2,7 +2,6 @@ import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 
 export default function Signup() {
-  //TODO: validate form data
   const genders = [
     { key: "MALE", value: "Male" },
     { key: "FEMALE", value: "Female" },
@@ -37,7 +36,7 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     dob: "",
-    gender: genders[0],
+    gender: genders[0].value,
     bloodGroup: bloodGroups[0].value,
     email: "",
     phone: "",
@@ -51,30 +50,74 @@ export default function Signup() {
     confirmPassword: "",
   };
 
+  //TODO: validate confirm password
   const validationSchema = Yup.object({
     firstName: Yup.string()
-      .required("Required!")
+      .required("First name is required")
       .matches(
         /^[A-Za-z\s]+$/,
-        "first name can contain only alphabets and spaces"
+        "First name can contain only alphabets and spaces"
       )
-      .min(2, "first name must be at least 2 characters"),
+      .min(2, "First name must be at least 2 characters"),
+
     lastName: Yup.string()
-      .required("Required!")
+      .required("Last name is required")
       .matches(
         /^[A-Za-z\s]+$/,
-        "last name can contain only alphabets and spaces"
+        "Last name can contain only alphabets and spaces"
       )
-      .min(2, "last name must be at least 2 characters"),
+      .min(2, "Last name must be at least 2 characters"),
+
     dob: Yup.date()
-      .required("DOB required")
-      .max(new Date(), "DOB cannot be in future"),
-    email: Yup.string().email("Invalid email").required("Email Required!"),
+      .required("Date of birth is required")
+      .max(new Date(), "Date of birth cannot be in the future"),
+
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+
     phone: Yup.string()
-      .matches(/^[0-9]{10}$/, "phone number must have 10 digits")
-      .required("Phone Number Required!"),
+      .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits")
+      .required("Phone number is required"),
+
+    district: Yup.string()
+      .required("District is required")
+      .matches(
+        /^[A-Za-z\s]+$/,
+        "District can contain only alphabets and spaces"
+      ),
+
+    state: Yup.string()
+      .required("State is required")
+      .matches(/^[A-Za-z\s]+$/, "State can contain only alphabets and spaces"),
+
+    zip: Yup.string()
+      .required("Zip / Pin Code is required")
+      .matches(/^[0-9]{6}$/, "Zip must be exactly 6 digits"),
+
+    nationality: Yup.string().required("Nationality is required"),
+
+    aadhar: Yup.string()
+      .nullable()
+      .matches(/^[0-9]{12}$/, "Aadhar number must be exactly 12 digits"),
+
+    passport: Yup.string()
+      .nullable()
+      .matches(/^[A-PR-WYa-pr-wy][1-9]\d{6}$/, "Invalid Passport number"),
+
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(
+        /[!@#$%^&*]/,
+        "Password must contain at least one special character"
+      ),
   });
 
+  //TODO: send payload to the backend API, and redirect to login upon success
   const onSubmit = (values) => console.log(values);
 
   return (
