@@ -50,7 +50,6 @@ export default function Signup() {
     confirmPassword: "",
   };
 
-  //TODO: validate confirm password
   const validationSchema = Yup.object({
     firstName: Yup.string()
       .required("First name is required")
@@ -115,6 +114,11 @@ export default function Signup() {
         /[!@#$%^&*]/,
         "Password must contain at least one special character"
       ),
+
+    confirmPassword: Yup.string()
+      .label("confirm password")
+      .required()
+      .oneOf([Yup.ref("password")], "password must match"),
   });
 
   //TODO: send payload to the backend API, and redirect to login upon success
@@ -300,7 +304,7 @@ const TextInput = ({
         name={name}
         title={title}
         placeholder={placeHolder}
-        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
       />
       <ErrorMessage
         name={name}
@@ -325,7 +329,7 @@ const SelectInput = ({
         component="select"
         name={name}
         title={title}
-        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
       >
         {options.map((a) => (
           <option key={a.key} value={a.key}>
