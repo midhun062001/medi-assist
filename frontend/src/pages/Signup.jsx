@@ -1,5 +1,66 @@
 import React, { useState } from "react";
 
+const spanClasses = {
+  1: "col-span-1",
+  2: "col-span-2",
+  3: "col-span-3",
+  4: "col-span-4",
+  5: "col-span-5",
+  6: "col-span-6",
+};
+
+// Reusable Text Input
+const TextInput = ({
+  id,
+  value,
+  setterValue,
+  label,
+  type = "text",
+  placeholder,
+  span = 2,
+}) => (
+  <div className={`${spanClasses[span]} flex flex-col`}>
+    <label htmlFor={id} className="text-[12px] font-bold text-black-100">
+      {label}
+    </label>
+    <input
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => setterValue(e.target.value)}
+      className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 placeholder:text-gray-500 transition-all duration-100"
+    />
+  </div>
+);
+
+// Reusable Select Input
+const SelectInput = ({ id, value, setterValue, label, options, span = 2 }) => (
+  <div className={`${spanClasses[span]} flex flex-col`}>
+    <label htmlFor={id} className="text-[12px] font-bold text-black-100">
+      {label}
+    </label>
+    <select
+      id={id}
+      value={value}
+      onChange={(e) => setterValue(e.target.value)}
+      className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 transition-all ease-in duration-100"
+    >
+      {options.map((opt, idx) =>
+        typeof opt === "string" ? (
+          <option key={idx} value={opt}>
+            {opt}
+          </option>
+        ) : (
+          <option key={idx} value={opt.key}>
+            {opt.value}
+          </option>
+        )
+      )}
+    </select>
+  </div>
+);
+
 export default function Signup() {
   //TODO: validate form data
   const genders = ["Male", "Female", "Others"];
@@ -44,64 +105,23 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Reusable Text Input
-  const TextInput = ({
-    id,
-    value,
-    setterValue,
-    label,
-    type = "text",
-    placeholder,
-    span = 2,
-  }) => (
-    <div className={`col-span-${span} flex flex-col`}>
-      <label htmlFor={id} className="text-[12px] font-bold text-black-100">
-        {label}
-      </label>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => setterValue(e.target.value)}
-        className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 placeholder:text-gray-500 transition-all duration-100"
-      />
-    </div>
-  );
-
-  // Reusable Select Input
-  const SelectInput = ({
-    id,
-    value,
-    setterValue,
-    label,
-    options,
-    span = 2,
-  }) => (
-    <div className={`col-span-${span} flex flex-col`}>
-      <label htmlFor={id} className="text-[12px] font-bold text-black-100">
-        {label}
-      </label>
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => setterValue(e.target.value)}
-        className="border-2 border-gray-400 px-1 h-[32px] text-[16px] text-black-100 rounded-md hover:border-gray-700 transition-all ease-in duration-100"
-      >
-        {options.map((opt, idx) =>
-          typeof opt === "string" ? (
-            <option key={idx} value={opt}>
-              {opt}
-            </option>
-          ) : (
-            <option key={idx} value={opt.key}>
-              {opt.value}
-            </option>
-          )
-        )}
-      </select>
-    </div>
-  );
+  const resetState = () => {
+    setFirstName("");
+    setLastName("");
+    setDob(new Date().toISOString().split("T")[0]);
+    setGender(genders[0]);
+    setBloodGroup(bloodGroups[0].value);
+    setEmail("");
+    setPhone("");
+    setDistrict("");
+    setState("");
+    setZip("");
+    setNationality(countryCodes[0].value);
+    setAadhar("");
+    setPassport("");
+    setPassword("");
+    setConfirmPassword("");
+  };
 
   // Submit handler
   const handleSubmit = (e) => {
@@ -124,8 +144,14 @@ export default function Signup() {
     };
     console.log("Form Data:", payload);
 
+    //TODO: validate payload
+    validatePayload(payload);
     //TODO: transfer the payload to the backend API
     //TODO:: upon successful registration, route to login page
+
+    //TODO: remove later, for testing only
+    // reset form data
+    resetState();
   };
 
   return (
