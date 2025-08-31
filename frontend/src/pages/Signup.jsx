@@ -38,14 +38,14 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     dob: "",
-    gender: genders[0].value,
-    bloodGroup: bloodGroups[0].value,
+    gender: genders[0].key,
+    bloodGroup: bloodGroups[0].key,
     email: "",
     phone: "",
     district: "",
     state: "",
     zip: "",
-    nationality: countryCodes[0].value,
+    nationality: countryCodes[0].key,
     aadhar: "",
     passport: "",
     password: "",
@@ -98,13 +98,41 @@ export default function Signup() {
 
     nationality: Yup.string().required("Nationality is required"),
 
-    aadhar: Yup.string()
-      .nullable()
-      .matches(/^[0-9]{12}$/, "Aadhar number must be exactly 12 digits"),
+    aadhar: Yup.string().when("nationality", {
+      is: "IN",
+      then: (schema) =>
+        schema
+          .trim()
+          .required("Aadhar number is required for Indian citizens")
+          .matches(/^[0-9]{12}$/, "Aadhar must be exactly 12 digits"),
+      otherwise: (schema) =>
+        schema
+          .trim()
+          .nullable()
+          .notRequired()
+          .matches(/^[0-9]{12}$/, {
+            message: "Aadhar must be exactly 12 digits",
+            excludeEmptyString: true,
+          }),
+    }),
 
-    passport: Yup.string()
-      .nullable()
-      .matches(/^[A-PR-WYa-pr-wy][1-9]\d{6}$/, "Invalid Passport number"),
+    passport: Yup.string().when("nationality", {
+      is: "IN",
+      then: (schema) =>
+        schema
+          .trim()
+          .nullable()
+          .notRequired()
+          .matches(/^[A-Za-z0-9]{6,}$/, {
+            message: "Invalid passport number",
+            excludeEmptyString: true,
+          }),
+      otherwise: (schema) =>
+        schema
+          .trim()
+          .required("Passport number is required")
+          .matches(/^[A-Za-z0-9]{6,}$/, "Invalid passport number"),
+    }),
 
     password: Yup.string()
       .required("Password is required")
@@ -123,8 +151,25 @@ export default function Signup() {
       .oneOf([Yup.ref("password")], "password must match"),
   });
 
-  //TODO: send payload to the backend API, and redirect to login upon success
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => {
+    const payload = {
+      firstName: values.firstName.trim(),
+      lastName: values.lastName.trim(),
+      dob: values.dob,
+      gender: values.gender,
+      bloodGroup: values.bloodGroup,
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      district: values.district.trim(),
+      zip: values.zip.trim(),
+      nationality: values.nationality,
+      aadhar: values.aadhar.trim(),
+      passport: values.passport.trim(),
+      password: values.password,
+    };
+    console.log(payload);
+    //TODO: send payload to the backend API, and redirect to login upon success
+  };
 
   return (
     <div className="h-screen w-screen flex items-center justify-center py-10 px-20 bg-white-300">
@@ -152,7 +197,7 @@ export default function Signup() {
                   <TextInput
                     type="text"
                     name="firstName"
-                    placeHolder="Enter your first name"
+                    placeHolder="Enter first name"
                     label="First Name"
                     title="Enter your first name"
                     span={3}
@@ -160,7 +205,7 @@ export default function Signup() {
                   <TextInput
                     type="text"
                     name="lastName"
-                    placeHolder="Enter your last name"
+                    placeHolder="Enter last name"
                     label="Last Name"
                     title="Enter your last name"
                     span={3}
@@ -190,7 +235,7 @@ export default function Signup() {
                     type="email"
                     name="email"
                     label="Email"
-                    placeHolder="Enter your email address"
+                    placeHolder="Enter email address"
                     title="Enter your email address"
                     span={3}
                   />
@@ -198,26 +243,26 @@ export default function Signup() {
                     type="tel"
                     name="phone"
                     label="Phone"
-                    placeHolder="Enter your phone number"
+                    placeHolder="Enter phone number"
                     title="Enter your phone number"
                     span={3}
                   />
                   <TextInput
                     name="state"
                     label="State"
-                    placeHolder="Enter your state"
+                    placeHolder="Enter state"
                     title="Enter your state"
                   />
                   <TextInput
                     name="district"
                     label="District"
-                    placeHolder="Enter your district"
+                    placeHolder="Enter district"
                     title="Enter your district"
                   />
                   <TextInput
                     name="zip"
                     label="Zip / Pin Code"
-                    placeHolder="Enter your zip / pin code"
+                    placeHolder="Enter zip / pin code"
                     title="Enter your zip/pin code"
                   />
                   <SelectInput
@@ -229,13 +274,13 @@ export default function Signup() {
                   <TextInput
                     name="aadhar"
                     label="Aadhar Number"
-                    placeHolder="Enter your aadhar number"
+                    placeHolder="Enter aadhar number"
                     title="Enter your aadhar number"
                   />
                   <TextInput
                     name="passport"
                     label="Passport Number"
-                    placeHolder="Enter your passport number"
+                    placeHolder="Enter passport number"
                     title="Enter your passport number"
                   />
                   <div className="col-span-6 py-5 mb-4 bg-gray-300 rounded-md px-4">
@@ -254,14 +299,14 @@ export default function Signup() {
                   <PasswordInput
                     name="password"
                     label="Password"
-                    placeHolder="Enter your password"
+                    placeHolder="Enter password"
                     title="Enter your password"
                     span={3}
                   />
                   <PasswordInput
                     name="confirmPassword"
                     label="Confirm Password"
-                    placeHolder="Confirm your password"
+                    placeHolder="Confirm password"
                     title="confirm your password"
                     span={3}
                   />

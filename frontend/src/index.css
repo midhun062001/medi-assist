@@ -1,6 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
 
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    box-shadow: 0 0 0 1000px transparent inset !important;
+
+    /* 👇 use explicit var, don't rely on currentColor here */
+    -webkit-text-fill-color: var(--autofill-fg, inherit) !important;
+    caret-color: var(--autofill-fg, currentColor) !important;
+
+    background-color: transparent !important;
+    transition: background-color 9999s ease-in-out 0s !important;
+  }
+}
+
 @theme {
   /* Font families */
   --font-open-sans: "Open Sans", sans-serif;
