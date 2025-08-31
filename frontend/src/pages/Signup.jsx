@@ -1,4 +1,6 @@
 import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import * as Yup from "yup";
 
 export default function Signup() {
@@ -249,14 +251,14 @@ export default function Signup() {
                     </ul>
                   </div>
 
-                  <TextInput
+                  <PasswordInput
                     name="password"
                     label="Password"
                     placeHolder="Enter your password"
                     title="Enter your password"
                     span={3}
                   />
-                  <TextInput
+                  <PasswordInput
                     name="confirmPassword"
                     label="Confirm Password"
                     placeHolder="Confirm your password"
@@ -304,7 +306,7 @@ const TextInput = ({
         name={name}
         title={title}
         placeholder={placeHolder}
-        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-400 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
       />
       <ErrorMessage
         name={name}
@@ -329,7 +331,7 @@ const SelectInput = ({
         component="select"
         name={name}
         title={title}
-        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-500 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
+        className="h-[36px] text-[16px] px-1.5 border-2 border-gray-400 rounded-md placeholder:text-gray-400 focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 transition-all duration-100"
       >
         {options.map((a) => (
           <option key={a.key} value={a.key}>
@@ -337,6 +339,47 @@ const SelectInput = ({
           </option>
         ))}
       </Field>
+      <ErrorMessage
+        name={name}
+        component="div"
+        className="text-red-600 text-xs"
+      />
+    </div>
+  );
+};
+
+const PasswordInput = ({
+  name = "",
+  placeHolder = "",
+  span = 2,
+  label = "",
+  title = "",
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+  return (
+    <div className={`${spanClasses[span]} flex flex-col gap-0.5 h-[80px] `}>
+      <label className="text-sm text-gray-700 font-bold">{label}</label>
+      <div className="relative">
+        <Field
+          type={showPassword ? "text" : "password"}
+          name={name}
+          title={title}
+          placeholder={placeHolder}
+          className="h-[36px] text-[16px] w-full px-1.5 pr-9 border-2 border-gray-400 rounded-md 
+                     focus:bg-gray-100 focus:border-gray-900 hover:border-gray-900 
+                     transition-all duration-100 placeholder:text-gray-400"
+        />
+        <button
+          type="button"
+          onMouseUp={() => setShowPassword(true)}
+          onMouseLeave={() => setShowPassword(false)}
+          onTouchStart={() => setShowPassword(true)}
+          onTouchEnd={() => setShowPassword(false)}
+          className="absolute right-3 top-[50%] text-gray-500 hover:text-gray-700 translate-y-[-50%]"
+        >
+          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+        </button>
+      </div>
       <ErrorMessage
         name={name}
         component="div"
