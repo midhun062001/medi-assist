@@ -33,6 +33,10 @@ It focuses on **appointment booking, medical history tracking, secure data handl
   <img src="https://skillicons.dev/icons?i=java,spring,react,postgresql,docker,git,github,tailwind" />
 </p>
 
----
+## 📬 Contact
 
-## 📂 Project Structure
+- Email: [midhunjohn06@gmail.com](mailto:midhunjohn06@gmail.com)  
+- LinkedIn: [midhunjohn06](https://www.linkedin.com/in/midhunjohn06)  
+- GitHub: [midhun062001](https://github.com/midhun062001)
+
+---
