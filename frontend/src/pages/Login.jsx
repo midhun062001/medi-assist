@@ -41,7 +41,7 @@ function Login() {
           <div className="h-full w-[40%]  bg-blue-700 flex items-center justify-center">
             <div className="h-[88%] w-[80%]  flex flex-col items-center">
               <div className="h-[100px] w-[100px] mb-5 rounded-[100%] overflow-hidden bg-blue-800/60 flex items-center justify-center">
-                <UserRound size={45} color="#ffffff" strokeWidth={1} />
+                <UserRound size={45} color="#dbeafe " strokeWidth={1} />
               </div>
               <div className="w-full h-[calc(100%-110px)] overflow-y-auto px-[5px]">
                 <Formik {...{ initialValues, validationSchema, onSubmit }}>

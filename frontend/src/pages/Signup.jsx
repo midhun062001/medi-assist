@@ -172,154 +172,165 @@ export default function Signup() {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center py-10 px-20 bg-white-300">
-      <div className="h-full w-full grid grid-cols-6 rounded-lg overflow-hidden">
-        {/* Left panel */}
-        <div className="h-full w-full bg-blue-200 col-span-2 flex flex-col items-center justify-center px-10 py-8">
-          <h1 className="text-3xl font-bold text-center w-full text-blue-800">
-            Welcome
-          </h1>
-          <div className="flex items-center justify-center h-full w-full">
-            <img src="src/assets/rocket.svg" className="w-[70%]" alt="Rocket" />
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-100 ">
+      <div className="w-[95%] h-[85%] px-15 py-10">
+        <div className="h-full w-full grid grid-cols-6 overflow-hidden rounded-lg">
+          {/* Left panel */}
+          <div className="h-full w-full bg-blue-200 col-span-2 flex flex-col items-center justify-center px-10 py-8">
+            <div className="flex items-center justify-center h-full w-full">
+              <img src="src/assets/love.svg" className="w-[72%]" alt="Rocket" />
+            </div>
           </div>
-        </div>
 
-        {/* Right panel */}
-        <div className="h-full w-full bg-white col-span-4 px-10 py-8 flex min-h-0">
-          <div className="h-full w-full flex min-h-0">
-            <div className="h-full w-full overflow-y-auto p-4 rounded-md ">
-              <Formik
-                initialValues={user}
-                onSubmit={onSubmit}
-                validationSchema={validationSchema}
-              >
-                <Form className="grid grid-cols-6 gap-x-2 gap-y-1">
-                  <TextInput
-                    type="text"
-                    name="firstName"
-                    placeHolder="Enter first name"
-                    label="First Name"
-                    title="Enter your first name"
-                    span={3}
-                  />
-                  <TextInput
-                    type="text"
-                    name="lastName"
-                    placeHolder="Enter last name"
-                    label="Last Name"
-                    title="Enter your last name"
-                    span={3}
-                  />
-                  <TextInput
-                    type="date"
-                    name="dob"
-                    label="Date of Birth"
-                    title="Enter your date of birth"
-                    span={2}
-                  />
-                  <SelectInput
-                    name="gender"
-                    span={2}
-                    label="Gender"
-                    title="Select your gender"
-                    options={genders}
-                  />
-                  <SelectInput
-                    name="bloodGroup"
-                    span={2}
-                    label="Blood Group"
-                    title="Select your blood group"
-                    options={bloodGroups}
-                  />
-                  <TextInput
-                    type="email"
-                    name="email"
-                    label="Email"
-                    placeHolder="Enter email address"
-                    title="Enter your email address"
-                    span={3}
-                  />
-                  <TextInput
-                    type="tel"
-                    name="phone"
-                    label="Phone"
-                    placeHolder="Enter phone number"
-                    title="Enter your phone number"
-                    span={3}
-                  />
-                  <TextInput
-                    name="state"
-                    label="State"
-                    placeHolder="Enter state"
-                    title="Enter your state"
-                  />
-                  <TextInput
-                    name="district"
-                    label="District"
-                    placeHolder="Enter district"
-                    title="Enter your district"
-                  />
-                  <TextInput
-                    name="zip"
-                    label="Zip / Pin Code"
-                    placeHolder="Enter zip / pin code"
-                    title="Enter your zip/pin code"
-                  />
-                  <SelectInput
-                    name="nationality"
-                    label="Nationality"
-                    title="Select your Nationality"
-                    options={countryCodes}
-                  />
-                  <TextInput
-                    name="aadhar"
-                    label="Aadhar Number"
-                    placeHolder="Enter aadhar number"
-                    title="Enter your aadhar number"
-                  />
-                  <TextInput
-                    name="passport"
-                    label="Passport Number"
-                    placeHolder="Enter passport number"
-                    title="Enter your passport number"
-                  />
-                  <div className="col-span-6 py-5 mb-4 bg-gray-300 rounded-md px-4">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                      Password must contain:
-                    </h3>
-                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                      <li>At least 8 characters</li>
-                      <li>At least one uppercase letter (A–Z)</li>
-                      <li>At least one lowercase letter (a–z)</li>
-                      <li>At least one number (0–9)</li>
-                      <li>At least one special character (!@#$%^&*)</li>
-                    </ul>
-                  </div>
+          {/* Right panel */}
+          <div className="h-full w-full bg-white col-span-4 px-10 pt-8 flex flex-col min-h-0">
+            <div className="h-full w-full flex min-h-0">
+              <div className="h-full w-full overflow-y-auto p-4 rounded-md ">
+                <Formik
+                  initialValues={user}
+                  onSubmit={onSubmit}
+                  validationSchema={validationSchema}
+                >
+                  <Form className="grid grid-cols-6 gap-x-2 gap-y-1">
+                    <TextInput
+                      type="text"
+                      name="firstName"
+                      placeHolder="Enter first name"
+                      label="First Name"
+                      title="Enter your first name"
+                      span={3}
+                    />
+                    <TextInput
+                      type="text"
+                      name="lastName"
+                      placeHolder="Enter last name"
+                      label="Last Name"
+                      title="Enter your last name"
+                      span={3}
+                    />
+                    <TextInput
+                      type="date"
+                      name="dob"
+                      label="Date of Birth"
+                      title="Enter your date of birth"
+                      span={2}
+                    />
+                    <SelectInput
+                      name="gender"
+                      span={2}
+                      label="Gender"
+                      title="Select your gender"
+                      options={genders}
+                    />
+                    <SelectInput
+                      name="bloodGroup"
+                      span={2}
+                      label="Blood Group"
+                      title="Select your blood group"
+                      options={bloodGroups}
+                    />
+                    <TextInput
+                      type="email"
+                      name="email"
+                      label="Email"
+                      placeHolder="Enter email address"
+                      title="Enter your email address"
+                      span={3}
+                    />
+                    <TextInput
+                      type="tel"
+                      name="phone"
+                      label="Phone"
+                      placeHolder="Enter phone number"
+                      title="Enter your phone number"
+                      span={3}
+                    />
+                    <TextInput
+                      name="state"
+                      label="State"
+                      placeHolder="Enter state"
+                      title="Enter your state"
+                    />
+                    <TextInput
+                      name="district"
+                      label="District"
+                      placeHolder="Enter district"
+                      title="Enter your district"
+                    />
+                    <TextInput
+                      name="zip"
+                      label="Zip / Pin Code"
+                      placeHolder="Enter zip / pin code"
+                      title="Enter your zip/pin code"
+                    />
+                    <SelectInput
+                      name="nationality"
+                      label="Nationality"
+                      title="Select your Nationality"
+                      options={countryCodes}
+                    />
+                    <TextInput
+                      name="aadhar"
+                      label="Aadhar Number"
+                      placeHolder="Enter aadhar number"
+                      title="Enter your aadhar number"
+                    />
+                    <TextInput
+                      name="passport"
+                      label="Passport Number"
+                      placeHolder="Enter passport number"
+                      title="Enter your passport number"
+                    />
+                    <div className="col-span-6 py-5 mb-4 bg-gray-300 rounded-md px-4">
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                        Password must contain:
+                      </h3>
+                      <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                        <li>At least 8 characters</li>
+                        <li>At least one uppercase letter (A–Z)</li>
+                        <li>At least one lowercase letter (a–z)</li>
+                        <li>At least one number (0–9)</li>
+                        <li>At least one special character (!@#$%^&*)</li>
+                      </ul>
+                    </div>
 
-                  <PasswordInput
-                    name="password"
-                    label="Password"
-                    placeHolder="Enter password"
-                    title="Enter your password"
-                    span={3}
-                  />
-                  <PasswordInput
-                    name="confirmPassword"
-                    label="Confirm Password"
-                    placeHolder="Confirm password"
-                    title="confirm your password"
-                    span={3}
-                  />
-                  <div className="col-span-6 flex justify-center">
-                    <button
-                      className="bg-blue-800 px-15 py-2 rounded-md text-white-200 font-semibold text-sm hover:bg-blue-700 transition-all duration-100"
-                      type="submit"
-                    >
-                      Register
-                    </button>
-                  </div>
-                </Form>
-              </Formik>
+                    <PasswordInput
+                      name="password"
+                      label="Password"
+                      placeHolder="Enter password"
+                      title="Enter your password"
+                      span={3}
+                    />
+                    <PasswordInput
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      placeHolder="Confirm password"
+                      title="confirm your password"
+                      span={3}
+                    />
+                    <div className="col-span-6 flex justify-center">
+                      <button
+                        className="bg-blue-800 px-15 py-2 rounded-md text-white-200 font-semibold text-sm hover:bg-blue-700 transition-all duration-100"
+                        type="submit"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </Form>
+                </Formik>
+              </div>
+            </div>
+            <div className="w-full py-[20px] flex justify-center">
+              <p className="text-[12.2px]">
+                Already having an account?{" "}
+                <a
+                  href="#"
+                  className="text-blue-700 font-semibold cursor-pointer hover:text-blue-700/80
+                  transition-all duration-200"
+                >
+                  login
+                </a>
+              </p>
             </div>
           </div>
         </div>
