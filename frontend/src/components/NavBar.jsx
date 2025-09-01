@@ -1,9 +1,11 @@
 import { Search } from "lucide-react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 
 function NavBar() {
   const searchOptions = ["Hospital", "Doctor"];
   return (
-    <nav className="w-screen px-[5%] py-[10px] h-[60px] flex justify-between bg-white shadow-lg">
+    <nav className="w-screen px-[5%] py-[10px] h-[65px] flex justify-between bg-white shadow-lg shadow-black/5 fixed top-0">
       <div className="h-full flex items-center">
         <h1 className="text-3xl text-gray-800 font-bold font-agbalumo flex items-center">
           MediAssist
@@ -26,8 +28,8 @@ function NavBar() {
         </ul>
         <button
           type="button"
-          className="h-[90%] px-10 cursor-pointer rounded-lg bg-gray-800 font-semibold text-gray-100 text-sm
-          hover:bg-gray-800/92 transition-all duration-200"
+          className="h-[90%] px-10 cursor-pointer rounded-lg bg-blue-800 font-semibold text-gray-100 text-sm
+          hover:bg-blue-800/85 transition-all duration-200"
         >
           Login
         </button>
@@ -36,32 +38,51 @@ function NavBar() {
   );
 }
 
-function SearchBarDropdown({ options = [] }) {
+function SearchBarDropdown({ options }) {
+  const initialValues = {
+    category: options[0],
+    searchKey: "",
+  };
+
+  const validationSchema = Yup.object({
+    searchKey: Yup.string().required(),
+  });
+  const onSubmit = (values) => {
+    console.log(values);
+  };
   return (
-    <div className="h-full w-full flex items-center">
-      <form className="w-full flex  border-gray-800 h-[90%] rounded-lg overflow-hidden relative">
-        <select
-          className="w-[40%] h-full focus:outline-none pl-[6px] bg-gray-800 text-sm text-gray-100 
-        hover:bg-gray-800/92 transition-all duration-200 "
-        >
-          {options.map((e) => (
-            <option>{e}</option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Search"
-          className="h-full w-full border-l-[1px] focus:outline-0 px-[10px] text-sm bg-gray-300 text-gray-900 
-          focus:bg-gray-200 hover:bg-gray-200 placeholder:text-gray-900/80 transition-all duration-200"
-        />
-        <button
-          type="submit"
-          className="absolute right-[2px] top-[50%] translate-[-50%] cursor-pointer"
-        >
-          <Search size={18} />
-        </button>
-      </form>
-    </div>
+    <Formik {...{ initialValues, onSubmit, validationSchema }}>
+      <div className="h-full w-full flex items-center">
+        <Form className="w-full flex  border-gray-800 h-[90%] rounded-[300px] overflow-hidden relative">
+          <Field
+            name="category"
+            component="select"
+            className="w-[40%] h-full focus:outline-none pl-[12px] bg-blue-800 text-sm text-gray-100
+        hover:bg-blue-800/85 transition-all duration-200
+        "
+          >
+            {options.map((e, idx) => (
+              <option key={idx} value={e}>
+                {e}
+              </option>
+            ))}
+          </Field>
+          <Field
+            name="searchKey"
+            type="text"
+            placeholder="Search"
+            className="h-full w-full border-l-[1px] focus:outline-0 px-[10px] text-sm bg-gray-200 text-gray-900
+          focus:bg-gray-200/70 hover:bg-gray-200/70 placeholder:text-gray-900/80 transition-all duration-200"
+          />
+          <button
+            type="submit"
+            className="absolute right-[6px] top-[50%] translate-[-50%] cursor-pointer"
+          >
+            <Search size={18} />
+          </button>
+        </Form>
+      </div>
+    </Formik>
   );
 }
 
