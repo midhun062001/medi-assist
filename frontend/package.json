@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^0.0.0-insiders.87b3ffc",
     "@tailwindcss/vite": "^4.1.12",
     "formik": "^2.4.6",
     "lucide-react": "^0.542.0",

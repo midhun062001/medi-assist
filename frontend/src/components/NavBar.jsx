@@ -40,7 +40,10 @@ function SearchBarDropdown({ options = [] }) {
   return (
     <div className="h-full w-full flex items-center">
       <form className="w-full flex  border-gray-800 h-[90%] rounded-lg overflow-hidden relative">
-        <select className="w-[40%] h-full focus:outline-0 pl-[6px] bg-gray-800 text-sm text-gray-100">
+        <select
+          className="w-[40%] h-full focus:outline-none pl-[6px] bg-gray-800 text-sm text-gray-100 
+        hover:bg-gray-800/92 transition-all duration-200 "
+        >
           {options.map((e) => (
             <option>{e}</option>
           ))}
