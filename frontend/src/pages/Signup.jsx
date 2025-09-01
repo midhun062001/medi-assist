@@ -174,7 +174,7 @@ export default function Signup() {
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gray-100 ">
       <div className="w-[95%] h-[85%] px-15 py-10">
-        <div className="h-full w-full grid grid-cols-6 overflow-hidden rounded-lg">
+        <div className="h-full w-full grid grid-cols-6 overflow-hidden rounded-lg shadow-xl">
           {/* Left panel */}
           <div className="h-full w-full bg-blue-200 col-span-2 flex flex-col items-center justify-center px-10 py-8">
             <div className="flex items-center justify-center h-full w-full">
@@ -310,7 +310,8 @@ export default function Signup() {
                     />
                     <div className="col-span-6 flex justify-center">
                       <button
-                        className="bg-blue-800 px-15 py-2 rounded-md text-white-200 font-semibold text-sm hover:bg-blue-700 transition-all duration-100"
+                        className="bg-blue-800 px-15 py-2 rounded-md text-white font-semibold text-sm
+                        hover:bg-blue-800/90 transition-all duration-200"
                         type="submit"
                       >
                         Register
@@ -427,8 +428,8 @@ const PasswordInput = ({
         />
         <button
           type="button"
-          onMouseUp={() => setShowPassword(true)}
-          onMouseLeave={() => setShowPassword(false)}
+          onMouseUp={() => setShowPassword(false)}
+          onMouseDown={() => setShowPassword(true)}
           onTouchStart={() => setShowPassword(true)}
           onTouchEnd={() => setShowPassword(false)}
           className="absolute right-3 top-[50%] text-gray-500 hover:text-gray-700 translate-y-[-50%]"

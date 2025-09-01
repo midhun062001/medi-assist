@@ -34,7 +34,7 @@ function Login() {
   return (
     <div className="h-[100dvh] w-[100dvw] bg-gray-100  flex items-center justify-center">
       <div className="w-[70%] h-[80%] px-15 py-10">
-        <div className=" h-full w-full flex gap-5 rounded-lg overflow-hidden bg-blue-200">
+        <div className=" h-full w-full flex gap-5 rounded-lg overflow-hidden bg-blue-200 shadow-xl">
           <div className="w-[60%] h-full flex items-center justify-center">
             <img src="src\assets\doctor.svg" className="h-[60%]" />
           </div>
@@ -43,7 +43,7 @@ function Login() {
               <div className="h-[100px] w-[100px] mb-5 rounded-[100%] overflow-hidden bg-blue-800/60 flex items-center justify-center">
                 <UserRound size={45} color="#dbeafe " strokeWidth={1} />
               </div>
-              <div className="w-full h-[calc(100%-110px)] overflow-y-auto px-[5px]">
+              <div className="w-full h-[calc(100%-110px)] overflow-y-auto px-[5px] py-[10px]">
                 <Formik {...{ initialValues, validationSchema, onSubmit }}>
                   <Form className=" flex flex-col gap-4 ">
                     <TextInput name="userName" />
@@ -66,7 +66,7 @@ function Login() {
                       <button
                         type="submit"
                         className="px-7 py-1.5 bg-blue-200 font-semibold cursor-pointer text-[0.8rem] rounded-lg text-blue-700 
-                        hover:bg-blue-100 transition-all duration-200"
+                        hover:bg-blue-200/90 transition-all duration-200"
                       >
                         Login
                       </button>
