@@ -8,7 +8,8 @@ function NavBar() {
     <nav className="w-screen px-[5%] py-[10px] h-[65px] flex justify-between bg-white shadow-lg shadow-black/5 fixed top-0">
       <div className="h-full flex items-center">
         <h1 className="text-3xl text-gray-800 font-bold font-agbalumo flex items-center">
-          MediAssist
+          <span className="text-blue-500">M</span>edi{" "}
+          <span className="text-blue-500">A</span>ssist
         </h1>
       </div>
       <div className="w-[30%] h-full py-5px">

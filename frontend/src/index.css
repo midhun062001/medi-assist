@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-  @import url("https://use.typekit.net/qnb0pgi.css");
+@import url("https://use.typekit.net/qnb0pgi.css");
 @import "tailwindcss";
 
 @layer base {
@@ -24,9 +24,10 @@
   /* Font families */
   --font-open-sans: "Open Sans", sans-serif;
   --font-agbalumo: "Agbalumo", system-ui;
-  --font-aileron: "aileron", sans-serif
+  --font-aileron: "aileron", sans-serif;
 
   /* colors */
+
   --color-blue-500: #0024c3;
   --color-blue-600: #001d9f;
   --color-blue-700: #001676;
