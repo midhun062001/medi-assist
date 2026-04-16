@@ -1,4 +1,4 @@
-# 🚑 Medi Assist
+# Medi Assist
 
 [![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/SpringBoot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
@@ -9,7 +9,7 @@
 
 ---
 
-## 🌟 About Medi Assist
+## About Medi Assist
 
 Medi Assist is a **full-stack healthcare management application** that connects patients and doctors efficiently.  
 It focuses on **appointment booking, medical history tracking, secure data handling, and notifications**.
@@ -27,13 +27,13 @@ It focuses on **appointment booking, medical history tracking, secure data handl
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=java,spring,react,postgresql,docker,git,github,tailwind" />
 </p>
 
-## 📬 Contact
+## Contact
 
 - Email: [midhunjohn06@gmail.com](mailto:midhunjohn06@gmail.com)  
 - LinkedIn: [midhunjohn06](https://www.linkedin.com/in/midhunjohn06)  
